@@ -1,0 +1,46 @@
+W1112 19:23:09.340000 13053 torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+positivos (37 C): 4
+negativos (22 C, 12 P): 30  dos quais pareados na mesma campanha: 4
+Loading weights:   0%|          | 0/170 [00:00<?, ?it/s]Loading weights: 100%|██████████| 170/170 [00:00<00:00, 10543.28it/s]
+Chronos-2: 10s, 457 janelas
+
+--- Chronos-2 multivariado, faixa 0.1-0.9 ---
+ percentil  limiar  FP_amplo_pct  FP_pareado_pct  deteccao_pct  alarme_1o_h
+      90.0  0.3028          76.7           100.0          75.0         36.0
+      95.0  0.4489          53.3            50.0          75.0         48.0
+      97.5  0.7258          30.0            25.0          25.0         48.0
+      99.0  0.9998          16.7            25.0           0.0          NaN
+      99.5  1.2514          10.0            25.0           0.0          NaN
+TimesFM 3.0: 46s
+
+--- TimesFM 3.0 multivariado, faixa 0.1-0.9 ---
+ percentil  limiar  FP_amplo_pct  FP_pareado_pct  deteccao_pct  alarme_1o_h
+      90.0  0.4044          66.7           100.0          25.0         44.0
+      95.0  0.6003          40.0            50.0          25.0         44.0
+      97.5  0.7510          26.7            50.0          25.0         44.0
+      99.0  1.0021          16.7            25.0          25.0         44.0
+      99.5  1.2328          10.0            25.0          25.0         44.0
+
+--- PCA SPE, k=4 componentes (metodo da linha de base) ---
+ percentil  limiar  FP_amplo_pct  FP_pareado_pct  deteccao_pct  alarme_1o_h
+      90.0     0.0          96.7           100.0         100.0         1.75
+      95.0     0.0          90.0           100.0         100.0        28.75
+      97.5     0.0          83.3            75.0         100.0        29.00
+      99.0     0.0          43.3            25.0         100.0        29.50
+      99.5     0.0          26.7            25.0          75.0         5.00
+
+--- PCA SPE, k=4 componentes (metodo da linha de base) ---
+ percentil  limiar  FP_amplo_pct  FP_pareado_pct  deteccao_pct  alarme_1o_h
+      90.0     0.0          96.7           100.0         100.0         1.75
+      95.0     0.0          90.0           100.0         100.0        28.75
+      97.5     0.0          83.3            75.0         100.0        29.00
+      99.0     0.0          43.3            25.0         100.0        29.50
+      99.5     0.0          26.7            25.0          75.0         5.00
+
+==============================================================================
+LINHA DE BASE PUBLICADA NO IndPenSim, para referencia de ordem de grandeza
+==============================================================================
+  PCA percentil 99.5, k=8 -> falso positivo 16.4%, deteccao 100%, atraso 1.60 h
+  PCA percentil 99.9, k=5 -> falso positivo  3.6%, deteccao  94%, atraso 1.45 h
+Atencao: processo e falha diferentes, logo comparacao e de ordem de grandeza, nao direta.

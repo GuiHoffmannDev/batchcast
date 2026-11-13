@@ -1,0 +1,71 @@
+52 corridas, contextos=[32, 64, 96, 128, 192], horizonte=64, braços=['A', 'B', 'E']
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+modelo carregado em 2.6s (device=cpu)
+/Users/guilhermehoffmann/Documents/TimesFM/.venv/lib/python3.12/site-packages/numpy/_core/_methods.py:219: RuntimeWarning: Degrees of freedom <= 0 for slice
+  ret = _var(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+/Users/guilhermehoffmann/Documents/TimesFM/.venv/lib/python3.12/site-packages/numpy/_core/_methods.py:178: RuntimeWarning: invalid value encountered in divide
+  arrmean = um.true_divide(arrmean, div, out=arrmean,
+/Users/guilhermehoffmann/Documents/TimesFM/.venv/lib/python3.12/site-packages/numpy/_core/_methods.py:208: RuntimeWarning: invalid value encountered in divide
+  ret = um.true_divide(
+  [1/52] uhlendorff2026:EXP001_W-68_small-scale_R01 -> 450 linhas
+  [2/52] uhlendorff2026:EXP001_W-68_small-scale_R02 -> 900 linhas
+  [3/52] uhlendorff2026:EXP001_W-68_small-scale_R03 -> 1350 linhas
+  [4/52] uhlendorff2026:EXP001_W-68_small-scale_R04 -> 1800 linhas
+  [5/52] uhlendorff2026:EXP002_W-68_small-scale_R01 -> 2250 linhas
+  [6/52] uhlendorff2026:EXP002_W-68_small-scale_R02 -> 2700 linhas
+  [7/52] uhlendorff2026:EXP002_W-68_small-scale_R03 -> 3150 linhas
+  [8/52] uhlendorff2026:EXP002_W-68_small-scale_R04 -> 3600 linhas
+  [9/52] uhlendorff2026:EXP003_W-3470_small-scale_R01 -> 4050 linhas
+  [10/52] uhlendorff2026:EXP003_W-3470_small-scale_R02 -> 4500 linhas
+  [11/52] uhlendorff2026:EXP003_W-3470_small-scale_R03 -> 4950 linhas
+  [12/52] uhlendorff2026:EXP003_W-3470_small-scale_R04 -> 5400 linhas
+  [13/52] uhlendorff2026:EXP004_W-3470_small-scale_R01 -> 5850 linhas
+  [14/52] uhlendorff2026:EXP004_W-3470_small-scale_R02 -> 6300 linhas
+  [15/52] uhlendorff2026:EXP004_W-3470_small-scale_R03 -> 6750 linhas
+  [16/52] uhlendorff2026:EXP004_W-3470_small-scale_R04 -> 7200 linhas
+  [17/52] uhlendorff2026:EXP005_W-68_small-scale_R01 -> 7650 linhas
+  [18/52] uhlendorff2026:EXP005_W-68_small-scale_R02 -> 8100 linhas
+  [19/52] uhlendorff2026:EXP005_W-68_small-scale_R03 -> 8550 linhas
+  [20/52] uhlendorff2026:EXP005_W-68_small-scale_R04 -> 9000 linhas
+  [21/52] uhlendorff2026:EXP006_W-3470_small-scale_R01 -> 9450 linhas
+  [22/52] uhlendorff2026:EXP006_W-3470_small-scale_R02 -> 9900 linhas
+  [23/52] uhlendorff2026:EXP006_W-3470_small-scale_R03 -> 10350 linhas
+  [24/52] uhlendorff2026:EXP006_W-3470_small-scale_R04 -> 10800 linhas
+  [25/52] uhlendorff2026:EXP007_W-68_small-scale_R01 -> 11250 linhas
+  [26/52] uhlendorff2026:EXP007_W-68_small-scale_R02 -> 11700 linhas
+  [27/52] uhlendorff2026:EXP007_W-68_small-scale_R03 -> 12150 linhas
+  [28/52] uhlendorff2026:EXP007_W-68_small-scale_R04 -> 12600 linhas
+  [29/52] uhlendorff2026:EXP008_W-3470_small-scale_R01 -> 13050 linhas
+  [30/52] uhlendorff2026:EXP008_W-3470_small-scale_R02 -> 13500 linhas
+  [31/52] uhlendorff2026:EXP008_W-3470_small-scale_R03 -> 13950 linhas
+  [32/52] uhlendorff2026:EXP008_W-3470_small-scale_R04 -> 14400 linhas
+  [33/52] uhlendorff2026:EXP009_W-68_small-scale_R01 -> 14850 linhas
+  [34/52] uhlendorff2026:EXP009_W-68_small-scale_R02 -> 15300 linhas
+  [35/52] uhlendorff2026:EXP009_W-68_small-scale_R03 -> 15750 linhas
+  [36/52] uhlendorff2026:EXP009_W-68_small-scale_R04 -> 16200 linhas
+  [37/52] uhlendorff2026:EXP010_W-3470_small-scale_R01 -> 16650 linhas
+  [38/52] uhlendorff2026:EXP010_W-3470_small-scale_R02 -> 17100 linhas
+  [39/52] uhlendorff2026:EXP010_W-3470_small-scale_R03 -> 17550 linhas
+  [40/52] uhlendorff2026:EXP010_W-3470_small-scale_R04 -> 18000 linhas
+  [41/52] uhlendorff2026:EXP011_W-68_small-scale_R01 -> 18450 linhas
+  [42/52] uhlendorff2026:EXP011_W-68_small-scale_R02 -> 18900 linhas
+  [43/52] uhlendorff2026:EXP011_W-68_small-scale_R03 -> 19350 linhas
+  [44/52] uhlendorff2026:EXP011_W-68_small-scale_R04 -> 19800 linhas
+  [45/52] uhlendorff2026:EXP012_W-3470_small-scale_R01 -> 20250 linhas
+  [46/52] uhlendorff2026:EXP012_W-3470_small-scale_R02 -> 20700 linhas
+  [47/52] uhlendorff2026:EXP012_W-3470_small-scale_R03 -> 21150 linhas
+  [48/52] uhlendorff2026:EXP012_W-3470_small-scale_R04 -> 21600 linhas
+  [49/52] uhlendorff2026:EXP013_W-68_pilot-scale -> 22050 linhas
+  [50/52] uhlendorff2026:EXP014_W-3470_pilot-scale -> 22500 linhas
+  [51/52] uhlendorff2026:EXP015_W-3470_pilot-scale -> 22950 linhas
+  [52/52] uhlendorff2026:EXP016_W-68_pilot-scale -> 23400 linhas
+
+escrito results/yeast_sweep.csv: 23400 linhas
+                     mase     wql  coverage
+arm                                        
+A_tfm3_multivar    7.1065  5.7970    0.7344
+B_tfm3_univar      6.2012  5.2463    0.7812
+E_drift           10.7288  9.2514    0.3281
+E_last_value       6.0183  4.7414    0.5469
+E_linear_extrap    8.5210  7.1452    0.6484
+E_seasonal_naive  11.5442  8.8263    0.2344

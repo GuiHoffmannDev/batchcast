@@ -1,0 +1,19 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+52 corridas; alvo=permittivity_pF_cm; conhecidos=['temperature_C', 'pH']; so-passado=['DO_percent', 'dCO2_percent']
+  [10/52] 630 linhas
+  [20/52] 1260 linhas
+  [30/52] 1890 linhas
+  [40/52] 2520 linhas
+  [50/52] 3150 linhas
+
+escrito results/yeast_cov_tfm3.csv: 3276 linhas
+
+                         MASE_med  WQL_med    cob    n
+arm                                                   
+A2_tfm3_covariates          3.268    2.593  0.812  468
+A2b_tfm3_setpoints_only     3.282    2.558  0.797  468
+E_linear_extrap             3.407    2.790  0.922  468
+B_tfm3_univar               3.720    2.945  0.703  468
+E_last_value                3.988    3.076  0.688  468
+A_tfm3_multivar             4.359    3.422  0.719  468
+E_drift                     5.257    4.182  0.516  468

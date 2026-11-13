@@ -1,0 +1,25 @@
+W1112 19:14:53.291000 9694 torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/170 [00:00<?, ?it/s]Loading weights: 100%|██████████| 170/170 [00:00<00:00, 9254.26it/s]
+Chronos-2 carregado; 52 corridas; contextos=[32, 64, 96, 128, 192]
+/Users/guilhermehoffmann/Documents/TimesFM/.venv/lib/python3.12/site-packages/chronos/chronos2/preprocess.py:49: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /Users/runner/work/pytorch/pytorch/torch/csrc/utils/tensor_numpy.cpp:214.)
+  data = torch.from_numpy(data)
+  [10/52] 1650 linhas
+  [20/52] 3300 linhas
+  [30/52] 4950 linhas
+  [40/52] 6600 linhas
+  [50/52] 8250 linhas
+
+escrito results/yeast_chronos.csv: 8580 linhas
+
+                        mase    wql  coverage
+arm                                          
+C_chronos2_covariates  2.888  2.360     0.844
+C_chronos2_multivar    4.623  4.044     0.953
+C_chronos2_univar      4.621  3.898     0.914
+
+context                  32     64     96     128    192
+arm                                                     
+C_chronos2_covariates  3.488  3.648  3.380  2.417  2.382
+C_chronos2_multivar    6.837  5.850  4.541  3.704  2.842
+C_chronos2_univar      6.349  5.358  4.568  3.885  3.377
