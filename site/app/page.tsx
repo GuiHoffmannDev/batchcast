@@ -271,7 +271,7 @@ export default function Page() {
 
             <figure className={card}>
               <figcaption>
-                <h3 className="text-xl tracking-tight">Ranges are still too wide</h3>
+                <h3 className="text-xl tracking-tight">Ranges hold when channels are forecast together</h3>
                 <p className="mt-3 text-sm text-steel">
                   Share of measurements that fell inside the 10% to 90% range. The line marks the{" "}
                   {coverageTarget * 100}% it should hold.

@@ -64,19 +64,19 @@ export const datasetFacts = [
 export const limitations = [
   "One public dataset and one kind of process: brewing-yeast propagation. Other organisms and scales are untested.",
   "One evaluation pass per window, without repeated seeds or confidence intervals.",
-  "Uncertainty ranges are too wide today. The 80% range of Chronos-2 covers 89% to 94% of observations.",
-  "These are zero-shot results from open models. Batchcast has not yet trained a model of its own.",
+  "The uncertainty range is calibrated only when all channels are forecast together. Channel by channel, the 80% range of Chronos-2 holds 75% of measurements.",
+  "These are zero-shot results from open models. A first test of fine-tuning on cell-culture data, about 100,000 points, did not improve on them.",
   "Batchcast forecasts where a batch is going. It is not a deviation alarm.",
 ];
 
 export const roadmap = [
   {
-    title: "Pretrain on batch data",
-    body: "The public benchmarks these models are tuned on contain no biology. A corpus of real fermentation batches is the gap that open models cannot close on their own.",
+    title: "Test transfer between close processes",
+    body: "Fine-tuning on cell-culture batches did not beat the open model on yeast. The untested case is the favourable one: fermentations close to each other, such as brewing yeast and sugarcane yeast, with far more batches.",
   },
   {
-    title: "Tighten the uncertainty ranges",
-    body: "Telling the model the planned temperature and pH brings Chronos-2 coverage from 0.89 to 0.84, against a target of 0.80. Recalibrating on process data should close the rest.",
+    title: "Forecast the endpoint",
+    body: "The results so far score every channel point by point. The next measurement is the one an operator acts on: where a batch will end and when it will get there.",
   },
   {
     title: "Work with production plants",
@@ -112,7 +112,7 @@ export const audiences = [
   {
     icon: "growth",
     title: "For investors",
-    body: "See the full evaluation, the limits we found and the plan for a model trained on fermentation data.",
+    body: "See the full evaluation, the limits we found and what comes next.",
     cta: "Ask for the full results",
   },
   {
@@ -141,10 +141,9 @@ export const ranking = [
   { name: "Linear extrapolation", value: 4.586, model: false },
 ];
 
-/** Share of observations inside the 10% to 90% range, all history lengths. The range should hold 80%. */
+/** Marginal coverage: mean share of observations inside the 10% to 90% range, all 5 channels, all history lengths. The range should hold 80%. */
 export const coverageTarget = 0.8;
 export const coverage = [
-  { name: "Chronos-2 told the planned temperature and pH", value: 0.844 },
-  { name: "Chronos-2, channel by channel", value: 0.891 },
-  { name: "Chronos-2, all channels together", value: 0.938 },
+  { name: "Chronos-2, all channels together", value: 0.792 },
+  { name: "Chronos-2, channel by channel", value: 0.751 },
 ];

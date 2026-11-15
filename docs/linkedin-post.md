@@ -16,15 +16,15 @@ I spent the last few days on a spike to decide whether a bioprocess forecasting 
 
 2. **Picking the model is not the edge. Getting there early is.** At 48 h of history, all four models tie. With short history, only Chronos-2 works: it beats the trivial baseline by about 28% with just 8 h of a 72 h batch. TimesFM 3.0 loses in that range. For early warning, that is the difference that matters.
 
-3. **Fancy architecture is not a shortcut.** No variation (multivariate, covariates) added more than ~10%. But setpoint covariates fixed quantile calibration, which matters more than their 3% accuracy gain, because it lets you act on the uncertainty.
+3. **Fancy architecture is not a shortcut.** No variation (multivariate, covariates) added more than ~10%. Setpoint covariates add about 3% accuracy and make the uncertainty range too narrow. Zero-shot Chronos-2 with all channels together was already calibrated: its 80% range holds 79% of the observations.
 
 4. **Deviation detection with a forecaster is a trap.** A forecaster conditioned on anomalous history treats the anomaly as the new normal. The better the model, the less it alarms. A plain 2-component PCA won: 100% detection versus 0% for Chronos-2 and 25% for TimesFM 3.0.
 
 5. **The license decides.** The TimesFM 3.0 license forbids using the results for business decisions. TimesFM 2.5 and Chronos-2 are Apache-2.0 and perform equally well or better.
 
-**A mistake I made myself:** in a first pass I reported a 12% gain from covariates. It came from comparing medians over different windows. Paired, it is 3.6%. The verification assertions caught it, and the correction is documented in the report.
+**A mistake I made myself:** in a first pass I reported a 12% gain from covariates. It came from comparing medians over different windows. Paired, it is 3.6%. I also first judged calibration by the median coverage, which reversed once measured by the mean. Verification caught both, and the corrections are documented in the reports.
 
-**Conclusion:** go, but swap the product (from deviation alarms to trajectory and end-point forecasting) and the bet (from architecture to data and calibration). None of these models saw bioprocess data in pre-training, and only proprietary batch data closes that gap.
+**Conclusion:** go, but swap the product (from deviation alarms to trajectory and end-point forecasting) and the bet. A follow-up experiment fine-tuned Chronos-2 on about 100,000 points of cell-culture data and did not beat the open model on yeast, so the bet moves from training a model to building around one that already works.
 
 I also published a site, Batchcast, with the results for the commercially licensed models, including a real Chronos-2 forecast in the chart.
 
