@@ -1,0 +1,52 @@
+W1113 00:35:39.523000 79209 torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+alvo: 52 corridas de levedura (NUNCA treinadas)
+doador: 24 corridas de CHO-K1, canais ['temperature_C', 'pH', 'DO_percent', 'dCO2_percent', 'permittivity_pF_cm']
+
+=== N=6 corridas de CHO | 105 janelas de treino | 23,930 pontos ===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/170 [00:00<?, ?it/s]Loading weights: 100%|██████████| 170/170 [00:00<00:00, 6776.58it/s]
+    passo   25 ep0 perda 6.5225 (26s)
+    passo   50 ep1 perda 5.3365 (55s)
+  perda 6.6575 -> 6.0250 em 52 passos, 59s
+  avaliado em levedura: 3900 linhas
+
+=== N=12 corridas de CHO | 214 janelas de treino | 48,570 pontos ===
+Loading weights:   0%|          | 0/170 [00:00<?, ?it/s]Loading weights: 100%|██████████| 170/170 [00:00<00:00, 20400.89it/s]
+    passo   25 ep0 perda 6.1059 (29s)
+    passo   50 ep0 perda 6.7043 (61s)
+    passo   75 ep1 perda 5.4779 (90s)
+    passo  100 ep1 perda 5.8517 (123s)
+  perda 5.9303 -> 5.0288 em 106 passos, 131s
+  avaliado em levedura: 3900 linhas
+
+=== N=18 corridas de CHO | 340 janelas de treino | 75,775 pontos ===
+Loading weights:   0%|          | 0/170 [00:00<?, ?it/s]Loading weights: 100%|██████████| 170/170 [00:00<00:00, 6204.38it/s]
+    passo   25 ep0 perda 6.5514 (16s)
+    passo   50 ep0 perda 5.9526 (29s)
+    passo   75 ep0 perda 5.9641 (43s)
+    passo  100 ep1 perda 5.3974 (56s)
+    passo  125 ep1 perda 5.3324 (70s)
+    passo  150 ep1 perda 5.2551 (83s)
+  perda 5.8755 -> 5.5981 em 170 passos, 94s
+  avaliado em levedura: 3900 linhas
+
+=== N=24 corridas de CHO | 448 janelas de treino | 100,135 pontos ===
+Loading weights:   0%|          | 0/170 [00:00<?, ?it/s]Loading weights: 100%|██████████| 170/170 [00:00<00:00, 7463.25it/s]
+    passo   25 ep0 perda 6.2086 (14s)
+    passo   50 ep0 perda 6.0774 (28s)
+    passo   75 ep0 perda 5.6262 (42s)
+    passo  100 ep0 perda 5.5312 (55s)
+    passo  125 ep1 perda 5.7640 (69s)
+    passo  150 ep1 perda 5.0641 (82s)
+    passo  175 ep1 perda 5.2900 (95s)
+    passo  200 ep1 perda 5.1360 (109s)
+  perda 6.3412 -> 5.1354 em 224 passos, 122s
+  avaliado em levedura: 3900 linhas
+
+escrito results/yeast_transfer.csv: 15600 linhas
+                    mase     wql  coverage
+arm                                       
+T_chronos2_cho12  4.4128  3.7753    0.9531
+T_chronos2_cho18  4.3138  3.8186    0.9531
+T_chronos2_cho24  4.6426  4.0006    0.9688
+T_chronos2_cho6   4.5256  3.8204    0.9219

@@ -87,5 +87,58 @@ check("clausula de decisao comercial", "not used in commercial decision-making" 
 check("clausula de destilacao comercial", "distill other models for commercial use" in lic)
 
 print(f"\n{'=' * 64}")
-print(f"{sum(ok)}/{len(ok)} verificacoes passaram")
-sys.exit(0 if all(ok) else 1)
+print(f"{sum(ok)}/{len(ok)} verificacoes do Experimento 1 passaram")
+
+
+# ---------------------------------------------------------------------------
+# Experimento 2: transferencia entre organismos, teto, controles e conformal.
+# Calibracao e medida pela cobertura MARGINAL (media), nunca pela mediana.
+# ---------------------------------------------------------------------------
+print("\n=== Experimento 2: numeros do RESULTS_TRANSFER.md ===")
+ok2 = []
+def check2(n, c, dd=""):
+    ok2.append(bool(c)); print(f"  [{'PASSA' if c else 'FALHA'}] {n}  {dd}")
+
+BASE2 = "C_chronos2_multivar"
+have = set(dd.arm)
+
+for lbl, a, lo, hi, wlo, whi in [
+    ("transferencia CHO N=6  = +0,5% / 52%", "T_chronos2_cho6", 0.0, 1.2, 50, 54),
+    ("transferencia CHO N=12 = +1,7% / 53%", "T_chronos2_cho12", 1.2, 2.3, 51, 55),
+    ("transferencia CHO N=18 = +2,0% / 53%", "T_chronos2_cho18", 1.5, 2.6, 51, 55),
+    ("transferencia CHO N=24 = +0,7% / 51%", "T_chronos2_cho24", 0.2, 1.3, 49, 53),
+    ("treino forte = -8,7% / 42%  (esquecimento)", "T_chronos2_cho24_hard", -9.5, -8.0, 40, 44),
+    ("controle embaralhado = -2,8% / 44%", "T_chronos2_cho24_shuf", -3.4, -2.3, 42, 46),
+    ("teto em distribuicao = +3,6% / 58%", "I_chronos2_yeast_indist", 3.0, 4.2, 56, 60),
+]:
+    if a not in have:
+        check2(lbl, False, "braco ausente"); continue
+    v, w, n = paired(a, BASE2)
+    check2(lbl, lo <= v <= hi and wlo <= w <= whi, f"{v:+.1f}% / {w:.0f}% n={n}")
+
+if "I_chronos2_yeast_indist" in have:
+    p_ = dd[dd.arm.isin(["I_chronos2_yeast_indist", BASE2])].pivot_table(
+        index=["run_id", "cut", "context", "channel"], columns="arm", values="wql").dropna()
+    v = ((p_[BASE2] - p_["I_chronos2_yeast_indist"]) / p_[BASE2] * 100).median()
+    check2("teto: ganho de WQL = +9,5%", 8.8 <= v <= 10.2, f"{v:+.1f}%")
+
+print("\n  -- calibracao: cobertura MARGINAL, nominal 0,80 --")
+for a, exp in [(BASE2, 0.792), ("C_chronos2_univar", 0.751), ("Bp_tfm25_univar", 0.848),
+               ("C_chronos2_covariates", 0.704), ("A2b_tfm3_setpoints_only", 0.663),
+               ("B_tfm3_univar", 0.633), ("E_last_value", 0.557),
+               ("I_chronos2_yeast_indist", 0.670), ("K_chronos2_conformal_mult", 0.793)]:
+    if a not in have:
+        check2(f"marginal {a} = {exp}", False, "ausente"); continue
+    v = dd[dd.arm == a].coverage.mean()
+    check2(f"marginal {a} = {exp}", abs(v - exp) < 0.004, f"medido {v:.3f}")
+
+if "K_chronos2_conformal_mult" in have:
+    b = dd[dd.arm == BASE2].coverage.mean()
+    c = dd[dd.arm == "K_chronos2_conformal_mult"].coverage.mean()
+    check2("conformal nao muda a calibracao (nada a corrigir)", abs(c - b) < 0.01,
+           f"zero-shot {b:.3f} -> conformal {c:.3f}")
+
+print(f"\n{'=' * 64}")
+print(f"Experimento 1: {sum(ok)}/{len(ok)} | Experimento 2: {sum(ok2)}/{len(ok2)}")
+
+sys.exit(0 if (all(ok) and all(ok2)) else 1)

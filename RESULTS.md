@@ -3,6 +3,11 @@
 Decisão interna de seguir ou parar. Trabalho descartável, dado público, sem parceiro.
 Data: 2026-11-12. Hardware: Apple M5, 16 GB, CPU apenas.
 
+> **Leia junto com `RESULTS_TRANSFER.md`.** O Experimento 2, de 2026-11-13, testou a premissa de
+> que ajustar em bioprocesso bate o modelo geral, e o resultado foi negativo. Ele também corrigiu
+> duas afirmações deste documento, sobre calibração e sobre o ganho das covariáveis. As correções
+> já estão aplicadas abaixo e estão marcadas.
+
 ## Resumo executivo
 
 52 corridas reais de fermentação de levedura, 780 janelas de previsão, quatro modelos de
@@ -60,19 +65,23 @@ O que é grande é a comparação com o método trivial. No canal de biomassa, C
 contra repetir o último valor, de +13% a +33% conforme o contexto, vencendo de 57% a 76% das
 janelas.
 
-Mas há uma ressalva que puxa para o outro lado: **as covariáveis de setpoint consertam a
-calibração**. Os dois braços que as usam ficam em 0,797 e 0,812 contra o nominal de 0,80,
-enquanto todos os outros erram de −0,10 a +0,14. Para decisão operacional isso vale mais que os
-3% de acurácia, porque é o que permite usar a incerteza em vez de só a linha central.
+Duas correções de método que devo registrar, ambas achadas por verificação depois do primeiro
+rascunho, e ambas pela mesma causa: **agregar antes de comparar**.
 
-Uma correção de método que devo registrar: numa primeira leitura reportei 12% de ganho para as
-covariáveis, por comparar medianas de braços que cobriam janelas diferentes. Emparelhado, são
-3,6%. Duas asserções de verificação pegaram esse erro e um segundo, de rótulo duplicado, e a
-seção de método no Resultado 2 explica a regra que passei a usar.
+Primeira: reportei 12% de ganho para as covariáveis comparando medianas de braços que cobriam
+janelas diferentes. Emparelhado, são 3,6%.
+
+Segunda, e mais grave: afirmei que as covariáveis consertavam a calibração, com base na mediana
+da cobertura por janela. **Calibração se mede pela média**, que é a cobertura marginal. Pela
+marginal, os braços com covariável ficam em 0,663 e 0,671 contra o nominal de 0,80, enquanto o
+Chronos-2 multivariado zero-shot fica em **0,792**. O zero-shot é o melhor calibrado de tudo que
+medi, e as covariáveis pioram a calibração em vez de consertar. O Experimento 2 documenta a
+correção e a confirma por predição conformal independente.
 
 A implicação prática inverte a aposta: não há atalho de arquitetura. A lacuna explorável é que
-**nenhum destes modelos viu bioprocesso no pré-treino**, mais a calibração ruim. Ambas se fecham
-com dado, não com engenhosidade de atenção.
+**nenhum destes modelos viu bioprocesso no pré-treino**. Essa se fecharia com dado, não com
+engenhosidade de atenção. O Experimento 2 testou exatamente isso e **não** encontrou ganho a
+10⁵ pontos.
 
 #### 4. O produto mais vendável não precisa de modelo de fundação
 
@@ -99,7 +108,7 @@ tem o que falta ao previsor, um modelo de referência do que é normal.
 |---|---|---|
 | Produto | alarme de desvio | previsão de trajetória e ponto final |
 | Linha de base a bater | especialistas publicados por processo | Chronos-2, Apache-2.0, 119M, grátis |
-| Aposta arquitetural | atenção entre sensores | nenhuma; o ganho vem de pré-treino em bateladas e de calibração |
+| Aposta arquitetural | atenção entre sensores | nenhuma com margem relevante |
 | Modelo de referência | TimesFM 3.0 | Chronos-2 ou TimesFM 2.5, por licença |
 
 A barra é mais alta do que o plano supunha: um modelo geral, gratuito e pequeno já bate o trivial
@@ -112,8 +121,11 @@ depende de ter mais computação que o Google:
    bateladas é a única lacuna que exige dado proprietário, e é por isso que ela é defensável.
 2. **Desempenho com histórico curto**, que é onde o dinheiro está e onde só um dos quatro modelos
    funciona hoje.
-3. **Calibração dos quantis**, hoje larga demais em todos os modelos, e que é o que impede usar
-   a incerteza para decidir. Foi parte da causa da falha na detecção de desvio.
+3. ~~Calibração dos quantis.~~ **Esta lacuna não existe.** Medida corretamente, pela cobertura
+   marginal, o Chronos-2 multivariado zero-shot acerta o nominal com erro de 0,008 em todo
+   tamanho de contexto. Confirmado por conformal independente no Experimento 2. O que existe é
+   superconfiança do **TimesFM 3.0** em contexto curto, cobertura de 0,411 contra 0,80 nominal,
+   que é mais um motivo para não usar aquele modelo.
 
 ## O que foi medido
 
@@ -324,26 +336,27 @@ temperatura e pH como passado-futuro rende +3,6%, e o braço que recebe também 
 só-passado rende +2,7%. Canais cujo futuro é desconhecido não ajudam. O valor vem inteiramente de
 saber o futuro da receita.
 
-**Na incerteza, a covariável é a única coisa que funciona.** Cobertura da faixa de 0,1 a 0,9,
-cujo nominal é 0,80, no conjunto natural de cada braço:
+**Na incerteza, a covariável também não ajuda.** A tabela de cobertura que estava aqui usava a
+mediana da fração coberta por janela, que **não** é calibração. Pela cobertura marginal, que é a
+média e é a definição correta:
 
-| Braço | Cobertura | Desvio do nominal |
+| Braço | Cobertura marginal | Desvio do nominal de 0,80 |
 |---|---|---|
-| `A2b_tfm3_setpoints_only` | **0,797** | **−0,003** |
-| `A2_tfm3_covariates` | **0,812** | **+0,012** |
-| `C_chronos2_covariates` | 0,844 | +0,044 |
-| `C_chronos2_univar` | 0,891 | +0,091 |
-| `C_chronos2_multivar` | 0,938 | +0,138 |
-| `B_tfm3_univar_sym` | 0,703 | −0,097 |
-| `A_tfm3_multivar_sym` | 0,719 | −0,081 |
+| `C_chronos2_multivar` | **0,792** | **−0,008** |
+| `C_chronos2_univar` | 0,751 | −0,049 |
+| `C_chronos2_covariates` | 0,704 | −0,096 |
+| `A2_tfm3_covariates` | 0,671 | −0,129 |
+| `A2b_tfm3_setpoints_only` | 0,663 | −0,137 |
+| `B_tfm3_univar_sym` | 0,603 | −0,197 |
+| `E_last_value` | 0,557 | −0,243 |
 
-Os dois braços com covariável de setpoint acertam a calibração praticamente de fábrica. Todos os
-outros erram para um lado ou para o outro, e os do Chronos-2 erram para largo, o que significa
-dizer "não sei" quando sabe.
+O Chronos-2 multivariado zero-shot é o melhor calibrado de tudo que medi, com erro de 0,008. Os
+braços com covariável pioram a calibração. O Experimento 2 confirma isso de forma independente:
+predição conformal multiplicativa buscou o fator de escala necessário e encontrou 1,0, ou seja,
+não havia nada para corrigir.
 
-Informar ao modelo o futuro da receita, portanto, **compra pouca acurácia e muita confiabilidade
-de intervalo**. Para decisão operacional isso vale mais do que os 3% sugerem, porque é o que
-permite usar a incerteza para decidir em vez de só olhar a linha central.
+Então a covariável de setpoint compra de 3% a 4% de acurácia e **nada** de confiabilidade de
+intervalo.
 
 ### Nota de método sobre comparações emparelhadas
 
@@ -356,7 +369,8 @@ pareceu render 12%. Emparelhado, rende 2,7%.
 
 Na correção, errei para o outro lado: usei a interseção de **todos** os braços, que tem só 156
 janelas e exclui os contextos em que alguns braços não rodaram. Isso distorceu tanto o ponto
-quanto a calibração, e me fez descartar o efeito de calibração que é real.
+quanto a calibração. Depois descobri que o erro maior era outro: usar a mediana em vez da média
+para medir cobertura. Ver a seção de Calibração e o Experimento 2.
 
 A regra correta, usada nas tabelas acima: **para cada confronto, o conjunto natural de pares
 daqueles dois braços**, com o n reportado ao lado.
@@ -487,43 +501,59 @@ discurso.
 
 ## Calibração
 
-Cobertura empírica da faixa 0,1 a 0,9, cujo valor nominal é 0,80. **Depende fortemente do
-tamanho do contexto**, e reportar só a média engana.
+**Esta seção foi reescrita.** A versão original usava a mediana da fração coberta por janela, que
+não é calibração. Calibração é a **cobertura marginal**, ou seja, a média dessa fração sobre as
+janelas. A distribuição por janela é bimodal, com 28,5% das janelas em 100% e 17,5% abaixo de
+50%, então mediana e média divergem muito e a mediana levava à conclusão oposta.
 
-Agregado sobre todos os contextos:
+Cobertura marginal agregada, nominal 0,80:
 
-| Braço | Cobertura | Leitura |
-|---|---|---|
-| `B_tfm3_univar` | 0,781 | calibrado |
-| `A_tfm3_multivar` | 0,734 | levemente estreito |
-| `C_chronos2_univar` | 0,891 | largo |
-| `C_chronos2_multivar` | 0,938 | largo |
+| Braço | Marginal | Desvio | Leitura |
+|---|---|---|---|
+| `C_chronos2_multivar` | **0,792** | **−0,008** | calibrado |
+| `Bp_tfm25_univar` | 0,848 | +0,048 | levemente largo |
+| `C_chronos2_univar` | 0,751 | −0,049 | levemente estreito |
+| `C_chronos2_covariates` | 0,704 | −0,096 | estreito |
+| `A2_tfm3_covariates` | 0,671 | −0,129 | estreito |
+| `A2b_tfm3_setpoints_only` | 0,663 | −0,137 | estreito |
+| `E_linear_extrap` | 0,638 | −0,162 | estreito |
+| `B_tfm3_univar` | 0,633 | −0,167 | estreito |
+| `A_tfm3_multivar` | 0,624 | −0,176 | estreito |
+| `E_last_value` | 0,557 | −0,243 | muito estreito |
 
-Só no contexto de 192, onde os modelos são precisos:
+Por contexto, que é onde a diferença entre os modelos aparece:
 
-| Braço | Cobertura |
-|---|---|
-| `E_last_value` | 0,797 |
-| `E_linear_extrap` | 0,766 |
-| `C_chronos2_univar` | 0,922 |
-| `C_chronos2_multivar` | 0,953 |
-| `B_tfm3_univar` | 0,969 |
-| `A_tfm3_multivar` | 0,969 |
-| `Bp_tfm25_univar` | 0,984 |
+| Braço | 32 | 64 | 96 | 128 | 192 |
+|---|---|---|---|---|---|
+| `C_chronos2_multivar` | **0,781** | **0,766** | **0,784** | **0,814** | **0,816** |
+| `C_chronos2_univar` | 0,768 | 0,726 | 0,738 | 0,753 | 0,769 |
+| `C_chronos2_covariates` | 0,729 | 0,723 | 0,662 | 0,689 | 0,720 |
+| `B_tfm3_univar` | 0,411 | 0,517 | 0,650 | 0,759 | 0,830 |
+| `A_tfm3_multivar` | 0,457 | 0,536 | 0,608 | 0,700 | 0,818 |
+| `E_last_value` | 0,423 | 0,506 | 0,555 | 0,605 | 0,698 |
 
-**Todos os modelos de fundação ficam largos demais com histórico longo.** O TimesFM 2.5 chega a
-0,984 contra o nominal de 0,80: a faixa de 80% cobre 98% das observações, ou seja, é quase três
-vezes mais larga do que deveria.
+Três leituras, e nenhuma é a que eu havia escrito.
 
-A exceção são os braços com covariável de setpoint, que acertam quase de fábrica: 0,797 no
-`A2b_tfm3_setpoints_only` e 0,812 no `A2_tfm3_covariates`, contra 0,80 nominal, cada um no seu
-conjunto natural de 468 janelas. Informar o futuro da receita melhora pouco o ponto e muito o
-intervalo.
+**O Chronos-2 multivariado está bem calibrado em todo tamanho de contexto.** De 0,766 a 0,816,
+sempre dentro de 0,034 do nominal. É o melhor calibrado de tudo que foi medido, e é o mesmo braço
+que já era o mais acurado. Isso reforça a conclusão do Resultado 2 em vez de contrariá-la.
 
-Por que isso importa: faixa larga demais significa que o modelo diz não saber quando na verdade
-sabe. Para decisão operacional, um intervalo três vezes mais largo que o real é inutilizável, e
-foi parte do motivo da falha na detecção de desvio. Recalibrar quantis em dado de bioprocesso é
-barato e é uma das lacunas concretas que um modelo vertical fecharia.
+**O TimesFM 3.0 é superconfiante com histórico curto, não largo.** Cobertura de 0,411 e 0,457 com
+32 pontos de contexto, contra 0,80 nominal. Sua faixa de 80% cobre 41% das observações. Só
+converge para o nominal com 192 pontos. Então o problema do TimesFM 3.0 em contexto curto não é
+só erro de ponto, é dizer que sabe quando não sabe. Para alarme operacional isso é pior que o
+erro de acurácia.
+
+**As linhas triviais e os braços com covariável são superconfiantes.** De 0,557 a 0,704. No caso
+das triviais isso mede a minha aproximação gaussiana de incerteza, não um método publicado, e
+está dito. No caso das covariáveis é um resultado real: informar o setpoint futuro deixa o modelo
+mais confiante do que ele tem direito a ser.
+
+Confirmação independente, no Experimento 2: predição conformal multiplicativa, calibrada em
+dobras por campanha, buscou o fator de escala necessário para o Chronos-2 multivariado e
+encontrou cerca de 1,0, com cobertura resultante de 0,793 contra 0,792 do original. Um
+procedimento que procura o que corrigir e não acha nada é a melhor evidência de que não havia o
+que corrigir.
 
 ## Varredura de configuração
 

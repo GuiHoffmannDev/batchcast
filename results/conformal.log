@@ -1,0 +1,21 @@
+W1113 00:52:00.098000 85036 torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/170 [00:00<?, ?it/s]Loading weights: 100%|██████████| 170/170 [00:00<00:00, 6068.20it/s]
+prevendo zero-shot em todas as janelas (cache)...
+  780 janelas em cache
+  dobra 0: 37 calibracao / 15 teste, Q por contexto = {32: [-0.02, -0.0, 0.888, 0.114, 0.01], 64: [-0.021, 0.016, 0.365, 0.179, 0.009], 96: [-0.018, -0.003, 0.465, 0.105, 0.007], 128: [-0.022, -0.003, 0.083, -0.008, -0.008], 192: [0.009, -0.003, -0.07, -0.034, 0.001]}
+  dobra 1: 32 calibracao / 20 teste, Q por contexto = {32: [-0.01, 0.003, 0.69, 0.044, 0.023], 64: [-0.007, 0.001, 0.281, 0.102, -0.001], 96: [-0.008, -0.002, 0.583, 0.19, 0.014], 128: [-0.007, 0.001, 0.186, -0.016, 0.011], 192: [0.014, 0.002, 0.038, -0.017, 0.015]}
+  dobra 2: 35 calibracao / 17 teste, Q por contexto = {32: [-0.026, -0.0, 0.117, 0.003, -0.022], 64: [-0.018, 0.004, 0.317, 0.072, -0.001], 96: [-0.009, -0.002, 0.441, 0.071, 0.01], 128: [-0.012, -0.001, 0.137, -0.005, 0.004], 192: [0.001, -0.0, -0.117, -0.025, 0.001]}
+
+escrito results/yeast_conformal.csv: 3900 linhas, 52 corridas (esperado 52)
+                        mase     wql  coverage
+arm                                           
+K_chronos2_conformal  5.3239  4.7673    0.9531
+
+cobertura por contexto (nominal 0,80):
+context
+32     0.953
+64     0.969
+96     0.953
+128    0.953
+192    0.938

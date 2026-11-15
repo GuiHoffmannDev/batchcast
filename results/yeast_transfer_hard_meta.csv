@@ -1,0 +1,2 @@
+arm,n_runs,n_windows,n_points,steps,loss_inicial,loss_final,segundos
+T_chronos2_cho24_hard,24,448,100135,672,6.521567344665527,3.284252715110779,518.3508427143097

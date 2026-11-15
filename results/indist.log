@@ -1,0 +1,29 @@
+W1113 00:45:37.146000 82840 torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+52 corridas, 16 campanhas, 3 dobras por campanha
+  dobra 0: 6 campanhas, 15 corridas de teste -> [np.str_('EXP003'), np.str_('EXP011'), np.str_('EXP008'), np.str_('EXP013'), np.str_('EXP014'), np.str_('EXP016')]
+  dobra 1: 5 campanhas, 20 corridas de teste -> [np.str_('EXP012'), np.str_('EXP001'), np.str_('EXP006'), np.str_('EXP007'), np.str_('EXP009')]
+  dobra 2: 5 campanhas, 17 corridas de teste -> [np.str_('EXP004'), np.str_('EXP005'), np.str_('EXP015'), np.str_('EXP010'), np.str_('EXP002')]
+
+=== dobra 0: treino 37 corridas / 73 janelas, teste 15 corridas ===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/170 [00:00<?, ?it/s]Loading weights: 100%|██████████| 170/170 [00:00<00:00, 20807.51it/s]
+    passo   25 ep1 perda 3.3619 (13s)
+  perda 4.0720 -> 2.3597 em 36 passos, 24s
+  avaliado: 1125 linhas
+
+=== dobra 1: treino 32 corridas / 64 janelas, teste 20 corridas ===
+Loading weights:   0%|          | 0/170 [00:00<?, ?it/s]Loading weights: 100%|██████████| 170/170 [00:00<00:00, 15996.94it/s]
+    passo   25 ep1 perda 4.2755 (40s)
+  perda 4.8338 -> 3.5011 em 32 passos, 47s
+  avaliado: 1500 linhas
+
+=== dobra 2: treino 35 corridas / 69 janelas, teste 17 corridas ===
+Loading weights:   0%|          | 0/170 [00:00<?, ?it/s]Loading weights: 100%|██████████| 170/170 [00:00<00:00, 8918.25it/s]
+    passo   25 ep1 perda 3.3864 (46s)
+  perda 3.8238 -> 3.0740 em 34 passos, 56s
+  avaliado: 1275 linhas
+
+escrito results/yeast_indist.csv: 3900 linhas, 52 corridas cobertas (esperado 52)
+                          mase     wql  coverage
+arm                                             
+I_chronos2_yeast_indist  4.021  3.2845    0.7969

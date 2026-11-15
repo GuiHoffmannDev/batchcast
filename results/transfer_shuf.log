@@ -1,0 +1,22 @@
+W1113 00:35:46.031000 79259 torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+alvo: 52 corridas de levedura (NUNCA treinadas)
+doador: 24 corridas de CHO-K1, canais ['temperature_C', 'pH', 'DO_percent', 'dCO2_percent', 'permittivity_pF_cm']
+
+=== N=24 corridas de CHO | 448 janelas de treino | 100,135 pontos ===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/170 [00:00<?, ?it/s]Loading weights: 100%|██████████| 170/170 [00:00<00:00, 25501.85it/s]
+    passo   25 ep0 perda 8.6968 (27s)
+    passo   50 ep0 perda 8.7180 (57s)
+    passo   75 ep0 perda 8.8027 (77s)
+    passo  100 ep0 perda 8.8850 (92s)
+    passo  125 ep1 perda 8.7754 (113s)
+    passo  150 ep1 perda 8.8216 (140s)
+    passo  175 ep1 perda 8.7431 (171s)
+    passo  200 ep1 perda 8.7785 (203s)
+  perda 8.6062 -> 8.6433 em 224 passos, 233s
+  avaliado em levedura: 3900 linhas
+
+escrito results/yeast_transfer_shuf.csv: 3900 linhas
+                         mase     wql  coverage
+arm                                            
+T_chronos2_cho24_shuf  4.9005  4.1479     0.875

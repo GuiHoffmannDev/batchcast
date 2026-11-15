@@ -1,0 +1,40 @@
+W1113 00:45:51.290000 82924 torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+alvo: 52 corridas de levedura (NUNCA treinadas)
+doador: 24 corridas de CHO-K1, canais ['temperature_C', 'pH', 'DO_percent', 'dCO2_percent', 'permittivity_pF_cm']
+
+=== N=24 corridas de CHO | 448 janelas de treino | 100,135 pontos ===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/170 [00:00<?, ?it/s]Loading weights: 100%|██████████| 170/170 [00:00<00:00, 19290.42it/s]
+    passo   25 ep0 perda 6.4660 (22s)
+    passo   50 ep0 perda 6.4165 (59s)
+    passo   75 ep0 perda 5.7250 (86s)
+    passo  100 ep0 perda 5.6832 (115s)
+    passo  125 ep1 perda 5.8304 (153s)
+    passo  150 ep1 perda 5.0917 (174s)
+    passo  175 ep1 perda 5.2589 (190s)
+    passo  200 ep1 perda 5.5006 (204s)
+    passo  225 ep2 perda 5.1131 (218s)
+    passo  250 ep2 perda 4.4547 (232s)
+    passo  275 ep2 perda 4.6412 (247s)
+    passo  300 ep2 perda 4.6784 (261s)
+    passo  325 ep2 perda 4.5444 (276s)
+    passo  350 ep3 perda 4.3971 (289s)
+    passo  375 ep3 perda 4.2573 (308s)
+    passo  400 ep3 perda 4.0997 (324s)
+    passo  425 ep3 perda 4.0788 (340s)
+    passo  450 ep4 perda 4.3842 (355s)
+    passo  475 ep4 perda 3.8794 (371s)
+    passo  500 ep4 perda 3.6988 (394s)
+    passo  525 ep4 perda 3.3558 (414s)
+    passo  550 ep4 perda 4.0569 (433s)
+    passo  575 ep5 perda 3.7724 (448s)
+    passo  600 ep5 perda 3.2154 (464s)
+    passo  625 ep5 perda 3.5323 (480s)
+    passo  650 ep5 perda 3.5049 (500s)
+  perda 6.5216 -> 3.2843 em 672 passos, 518s
+  avaliado em levedura: 3900 linhas
+
+escrito results/yeast_transfer_hard.csv: 3900 linhas
+                         mase     wql  coverage
+arm                                            
+T_chronos2_cho24_hard  5.1761  4.1373    0.7344
