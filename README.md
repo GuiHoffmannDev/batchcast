@@ -107,13 +107,16 @@ form validation tests.
 
 ## Data and licences
 
+- **Code:** the code in `spike/` and `site/` is licensed under Apache-2.0, see
+  [LICENSE](LICENSE). That licence does not extend to the third-party items below.
 - **Data:** `uhlendorff2026` (yeast, DOI `10.5281/zenodo.19690248`) and `uhlendorff2026_cho`
   (CHO, DOI `10.5281/zenodo.20829178`), both CC BY 4.0, obtained through the Bioprocess Atlas.
   The data is not redistributed here.
 - **Models behind the headline results:** Chronos-2 and TimesFM 2.5, both Apache-2.0.
 - **TimesFM 3.0** was also measured. Its weights are under the TimesFM Non-Commercial License
   v1.0 (copy in `docs/timesfm-3.0-LICENSE.txt`). Its numbers appear in the reports as a research
-  comparison only; the site and the results above cite the Apache-2.0 models.
+  comparison only and stay subject to that licence; the site and the results above cite the
+  Apache-2.0 models.
 
 ## Limitations
 
